@@ -3,111 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canlı Maç İzle</title>
+    <title>Melik Spor | Canlı Maç Merkezi</title>
     <style>
-        /* Modern ve Karanlık Tema Ayarları */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        :root {
+            --primary: #fbbf24; /* Altın/Sarı tonu */
+            --danger: #ef4444;
+            --bg-dark: #020617;
+            --card-bg: #1e293b;
         }
 
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            padding-bottom: 50px;
+        }
+
+        /* Dinamik Header */
         header {
-            width: 100%;
-            padding: 20px 0;
-            background-color: #1e293b;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 30px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .container {
-            width: 90%;
-            max-width: 1000px;
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            width: 95%;
+            max-width: 1100px;
+            margin: 20px auto;
         }
 
-        /* Video Alanı (Responsive / Mobil Uyumlu) */
+        /* Kategori Başlıkları */
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            margin: 30px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Maç Kartı Tasarımı */
+        .match-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .match-header {
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .live-label {
+            background: var(--danger);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: flash 1.5s infinite;
+        }
+
+        /* Video Alanı */
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Oranı */
+            padding-bottom: 56.25%;
             height: 0;
-            overflow: hidden;
-            border-radius: 8px;
             background: #000;
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             border: none;
         }
 
-        .status-bar {
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: #94a3b8;
+        /* Kanal Listesi (Gelecek İçin Hazır Yapı) */
+        .grid-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
         }
 
-        .live-dot {
-            height: 10px;
-            width: 10px;
-            background-color: #ef4444;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
+        .channel-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        .channel-item:hover {
+            background: #334155;
+            border-color: var(--primary);
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         footer {
-            margin-top: 40px;
-            font-size: 12px;
+            text-align: center;
+            padding: 40px;
             color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Mobil Düzenleme */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>CANLI YAYIN</h1>
+        <h1>MELİK SPOR</h1>
+        <p style="color: var(--primary); font-weight: bold;">Kalitenin Tek Adresi</p>
     </header>
 
     <div class="container">
-        <div class="video-wrapper">
-            <iframe 
-                src="https://cdn.theoplayer.com/demos/iframe/theoplayer.html?autoplay=false&muted=false&preload=none&src=https://tv-trt1-dash.medya.trt.com.tr/master.mpd" 
-                allowfullscreen 
-                allow="autoplay; encrypted-media">
-            </iframe>
+        
+        <div class="category-title">
+            <span>🔥</span> CANLI MAÇLAR
         </div>
 
-        <div class="status-bar">
-            <span class="live-dot"></span>
-            <span>Şu an Canlı Yayınlanıyor</span>
+        <div class="match-card">
+            <div class="match-header">
+                <span style="font-weight: bold;">Liverpool - Galatasaray</span>
+                <span class="live-label">CANLI</span>
+            </div>
+            
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://cdn.theoplayer.com/demos/iframe/theoplayer.html?autoplay=false&muted=false&preload=none&src=https://tv-trt1-dash.medya.trt.com.tr/master.mpd" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
+
+        <div class="category-title">
+            <span>📺</span> KANALLAR
+        </div>
+
+        <div class="grid-channels">
+            <div class="channel-item">Spor Smart</div>
+            <div class="channel-item">Bein Sports 1</div>
+            <div class="channel-item">TRT Spor</div>
+            <div class="channel-item">S Sport</div>
+        </div>
+
     </div>
 
     <footer>
-        &copy; 2026 Canlı Maç İzle Sitesi - Tüm Hakları Saklıdır.
+        <p>&copy; 2026 Melik Spor Yayın Grubu</p>
+        <p style="font-size: 10px;">Bu site eğitim amaçlı bir demo tasarımıdır.</p>
     </footer>
 
 </body>
