@@ -13,19 +13,17 @@
         .card-hover { transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .card-hover:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2); }
         
-        /* PLAN SEÇME KISMI (DOKUNULMAZ TASARIM) */
+        /* PLAN SEÇME KISMI (DOKUNULMAZ) */
         .red-glow-border { border: 3px solid #dc2626; box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
         .blue-border { border: 3px solid #2563eb; }
 
-        /* Profil Paneli */
+        /* Profil Yan Panel */
         #profilePanel { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
         #profilePanel.active { transform: translateX(0); }
 
-        /* Bölüm Listesi Kaydırma */
-        .episode-list { max-height: 400px; overflow-y: auto; }
+        .episode-list { max-height: 450px; overflow-y: auto; }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
     </style>
 </head>
 <body>
@@ -42,17 +40,10 @@
             </ul>
         </div>
 
-        <div class="hidden md:flex flex-grow max-w-sm mx-8">
-            <div class="relative w-full">
-                <input type="text" placeholder="Dizi, film veya tür ara..." class="w-full bg-zinc-900 border border-white/10 rounded-lg py-1.5 px-8 text-xs focus:outline-none focus:border-blue-500 transition">
-                <i class="fas fa-search absolute left-3 top-2.5 text-gray-500 text-[10px]"></i>
-            </div>
-        </div>
-
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-2 cursor-pointer" onclick="toggleProfile()">
                 <div id="navAvatar" class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-xs shadow-lg text-white">U</div>
-                <p class="hidden sm:block text-[10px] font-bold text-gray-400 uppercase">PROKİLM <br><span id="navUsername" class="text-white text-xs">User</span></p>
+                <p class="hidden sm:block text-[10px] font-bold text-gray-400">PROKİLM <br><span id="navUsername" class="text-white text-xs uppercase">User</span></p>
             </div>
         </div>
     </nav>
@@ -60,12 +51,12 @@
     <div id="profileOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] hidden" onclick="toggleProfile()"></div>
     <aside id="profilePanel" class="fixed top-0 right-0 h-full w-72 bg-[#0a0a0a] z-[70] border-l border-white/5 shadow-2xl">
         <div class="p-6">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="text-sm font-bold tracking-tight text-white uppercase">Profil Ayarları</h3>
+            <div class="flex justify-between items-center mb-10 text-white">
+                <h3 class="text-sm font-bold uppercase tracking-tight">Profil Ayarları</h3>
                 <button onclick="toggleProfile()" class="text-gray-500 hover:text-white text-lg">&times;</button>
             </div>
             <div class="flex flex-col items-center mb-8">
-                <div id="panelAvatar" class="w-20 h-20 bg-blue-600 rounded-xl flex items-center justify-center text-2xl font-black shadow-2xl mb-4 text-white uppercase">U</div>
+                <div id="panelAvatar" class="w-20 h-20 bg-blue-600 rounded-xl flex items-center justify-center text-2xl font-black text-white shadow-2xl mb-4">U</div>
                 <button class="text-[9px] text-gray-500 uppercase font-bold tracking-widest hover:text-blue-500 transition">Görseli Değiştir</button>
             </div>
             <div class="space-y-6">
@@ -73,18 +64,17 @@
                     <label class="text-[9px] text-gray-500 uppercase font-bold mb-2 block tracking-widest">Kullanıcı Adı</label>
                     <input type="text" id="usernameInput" placeholder="Kullanıcı Adı" class="w-full bg-zinc-900 border border-white/5 rounded py-2 px-3 text-sm focus:border-blue-500 outline-none transition text-white">
                 </div>
-                <button onclick="saveProfile()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded font-bold text-sm transition">Ayarları Kaydet</button>
+                <button onclick="saveProfile()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded font-bold text-sm transition uppercase">Kaydet</button>
             </div>
         </div>
     </aside>
 
-    <header class="relative h-[65vh] w-full flex items-end pb-16 px-8">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925')] bg-cover bg-center -z-10 opacity-40"></div>
+    <header class="relative h-[60vh] w-full flex items-end pb-16 px-8">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070')] bg-cover bg-center -z-10 opacity-30"></div>
         <div class="hero-gradient absolute inset-0 -z-10"></div>
         <div class="max-w-2xl">
-            <h2 class="text-6xl font-black mb-4 tracking-tighter uppercase leading-none text-white">Sınır Yok</h2>
-            <p class="text-gray-400 text-sm mb-6 max-w-md italic">Favori içeriklerini en net haliyle keşfetmeye hazır mısın?</p>
-            <button class="bg-gray-200 text-black px-8 py-2.5 rounded font-bold hover:bg-white transition text-sm">İZLEMEYE BAŞLA</button>
+            <h2 class="text-6xl font-black mb-4 tracking-tighter uppercase leading-none text-white italic">Sınır Yok</h2>
+            <button class="bg-white text-black px-10 py-3 rounded font-black hover:bg-gray-200 transition text-xs uppercase tracking-widest">Şimdi İzle</button>
         </div>
     </header>
 
@@ -94,10 +84,10 @@
             <h3 class="text-sm font-bold mb-6 flex items-center gap-2 border-l-4 border-blue-600 pl-3 uppercase tracking-widest text-white">Popüler Diziler</h3>
             <div class="grid grid-cols-2 md:grid-cols-6 gap-6">
                 <div class="card-hover cursor-pointer rounded overflow-hidden bg-zinc-900 shadow-xl" onclick="openEpisodes()">
-                    <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/hjVNQA2a12OxkpDEOQTBMbKVZ1K.jpg" class="w-full h-auto aspect-[2/3] object-cover" alt="Stranger Things">
+                    <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/hjVNQA2a12OxkpDEOQTBMbKVZ1K.jpg" class="w-full h-auto aspect-[2/3] object-cover">
                     <div class="p-3">
                         <h4 class="font-bold text-xs truncate text-white uppercase">Stranger Things</h4>
-                        <p class="text-[9px] text-blue-500 font-bold uppercase mt-1">4 Sezon • Bilim Kurgu</p>
+                        <p class="text-[9px] text-blue-500 font-bold uppercase mt-1">Dizi</p>
                     </div>
                 </div>
             </div>
@@ -106,8 +96,8 @@
         <section>
             <h3 class="text-sm font-bold mb-6 flex items-center gap-2 border-l-4 border-blue-600 pl-3 uppercase tracking-widest text-white">Gişe Filmleri</h3>
             <div class="grid grid-cols-2 md:grid-cols-6 gap-6">
-                <div class="card-hover cursor-pointer rounded overflow-hidden bg-zinc-900 shadow-xl" onclick="openModal('https://www.youtube.com/embed/1JLUn2DFW4w')">
-                    <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/exsByu9wCHLHLzjPXxhwQZXGIbA.jpg" class="w-full h-auto aspect-[2/3] object-cover" alt="El Camino">
+                <div class="card-hover cursor-pointer rounded overflow-hidden bg-zinc-900 shadow-xl" onclick="openModal('https://ORNEK_LINK.m3u8')">
+                    <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/exsByu9wCHLHLzjPXxhwQZXGIbA.jpg" class="w-full h-auto aspect-[2/3] object-cover">
                     <div class="p-3">
                         <h4 class="font-bold text-xs truncate text-white uppercase">El Camino</h4>
                         <p class="text-[9px] text-blue-500 font-bold uppercase mt-1">Film</p>
@@ -118,141 +108,145 @@
 
         <section class="py-16 bg-zinc-900/30 rounded-3xl border border-white/5 p-8">
             <div class="text-center mb-12">
-                <p class="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em] mb-2">Premium Planlar</p>
-                <h3 class="text-4xl font-black text-white tracking-tighter">İzleme Deneyimini Özelleştir</h3>
+                <h3 class="text-4xl font-black text-white tracking-tighter italic">İzleme Deneyimini Özelleştir</h3>
             </div>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-zinc-950 p-8 rounded-3xl flex flex-col blue-border relative">
-                    <div class="mb-6">
-                        <h4 class="text-lg font-bold text-blue-400 uppercase">Ultra Eğlence</h4>
-                        <div class="mt-2 flex items-baseline"><span class="text-5xl font-black text-white">20₺</span><span class="text-gray-500 text-xs ml-2">/aylık</span></div>
-                    </div>
+                <div class="bg-zinc-950 p-8 rounded-3xl flex flex-col blue-border">
+                    <h4 class="text-lg font-bold text-blue-400 uppercase tracking-widest">Ultra Eğlence</h4>
+                    <div class="mt-2 flex items-baseline mb-6"><span class="text-5xl font-black text-white">20₺</span><span class="text-gray-500 text-xs ml-2">/aylık</span></div>
                     <ul class="space-y-3 mb-8 flex-grow text-xs text-gray-400">
                         <li>Sınırsız Film ve Dizi Erişimi</li>
                         <li>4K Ultra HD Görüntü Kalitesi</li>
-                        <li>Reklamsız İzleme Keyfi</li>
-                        <li>İçerikleri İndir ve Çevrimdışı İzle</li>
+                        <li>Reklamsız İzleme</li>
                     </ul>
-                    <button class="w-full bg-blue-600 py-3 rounded-xl font-bold text-sm text-white uppercase shadow-lg">Hemen Başla</button>
+                    <button class="w-full bg-blue-600 py-3 rounded-xl font-bold text-sm text-white uppercase shadow-lg">Seç</button>
                 </div>
                 <div class="bg-zinc-950 p-8 rounded-3xl flex flex-col red-glow-border relative">
                     <div class="absolute -top-3 right-6 bg-red-600 text-white text-[9px] font-black px-4 py-1 rounded-full uppercase">En Kapsamlı</div>
-                    <div class="mb-6">
-                        <h4 class="text-lg font-bold text-red-500 uppercase">Ultra + Canlı Maç</h4>
-                        <div class="mt-2 flex items-baseline"><span class="text-5xl font-black text-white">50₺</span><span class="text-gray-500 text-xs ml-2">/aylık</span></div>
-                    </div>
+                    <h4 class="text-lg font-bold text-red-500 uppercase tracking-widest">Ultra + Canlı Maç</h4>
+                    <div class="mt-2 flex items-baseline mb-6"><span class="text-5xl font-black text-white">50₺</span><span class="text-gray-500 text-xs ml-2">/aylık</span></div>
                     <ul class="space-y-3 mb-8 flex-grow text-xs text-gray-400">
-                        <li class="text-white font-bold italic">Önceki tüm özellikler</li>
-                        <li class="bg-zinc-900 p-2 rounded border border-white/5 text-white">Canlı maç kanallarına erişim hakkı</li>
-                        <li>Spor Haberleri ve Canlı Skorlar</li>
-                        <li>Geriye Dönük Maç İzleme</li>
+                        <li class="text-white font-bold italic">Tüm Özellikler + Canlı Maçlar</li>
+                        <li>Geriye Dönük İzleme</li>
                     </ul>
-                    <button class="w-full bg-red-600 py-3 rounded-xl font-bold text-sm text-white uppercase shadow-lg">Hemen Abone Ol</button>
+                    <button class="w-full bg-red-600 py-3 rounded-xl font-bold text-sm text-white uppercase shadow-lg shadow-red-600/20">Abone Ol</button>
                 </div>
             </div>
             <div class="text-center mt-12 opacity-50">
-                <h1 class="text-xs font-black tracking-widest uppercase"><span class="text-white">Vision</span><span class="text-blue-500">Stream</span></h1>
-                <p class="text-[8px] mt-1 tracking-widest text-gray-400 uppercase">© 2026 VISIONSTREAM HD. TÜM HAKLARI SAKLIDIR.</p>
+                <h1 class="text-[10px] font-black tracking-widest uppercase text-white">Vision<span class="text-blue-500">Stream</span></h1>
             </div>
         </section>
     </main>
 
-    <div id="episodeModal" class="fixed inset-0 bg-black/98 z-[110] hidden flex items-center justify-center p-4 backdrop-blur-md">
-        <button onclick="closeEpisodes()" class="absolute top-6 right-6 text-3xl text-gray-500 hover:text-white">&times;</button>
-        <div class="w-full max-w-4xl bg-zinc-950 border border-white/5 rounded-3xl p-8 shadow-2xl overflow-hidden">
-            <h2 class="text-2xl font-black text-white mb-6 uppercase tracking-tighter">Stranger Things - Bölüm Seç</h2>
-            
-            <div class="flex gap-4 mb-8">
-                <select id="seasonSelect" onchange="loadEpisodes()" class="bg-zinc-900 border border-white/10 text-white text-xs px-4 py-2 rounded-lg outline-none focus:border-blue-500">
-                    <option value="1">1. Sezon</option>
-                    <option value="2">2. Sezon</option>
-                    <option value="3">3. Sezon</option>
-                    <option value="4">4. Sezon</option>
-                </select>
-            </div>
-
-            <div id="episodeContainer" class="episode-list grid grid-cols-1 md:grid-cols-2 gap-3 pr-2">
-                </div>
+    <div id="episodeModal" class="fixed inset-0 bg-black/98 z-[110] hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-3xl bg-[#0a0a0a] border border-white/5 rounded-3xl p-8 relative">
+            <button onclick="closeEpisodes()" class="absolute top-6 right-6 text-2xl text-gray-500 hover:text-white">&times;</button>
+            <h2 class="text-xl font-black text-white mb-6 uppercase tracking-tighter">Stranger Things</h2>
+            <select id="seasonSelect" onchange="loadEpisodes()" class="bg-zinc-900 text-white text-xs p-2 rounded-lg mb-6 border border-white/10 outline-none">
+                <option value="1">Sezon 1</option>
+                <option value="2">Sezon 2</option>
+                <option value="3">Sezon 3</option>
+                <option value="4">Sezon 4</option>
+                <option value="5">Sezon 5</option>
+            </select>
+            <div id="episodeContainer" class="episode-list grid grid-cols-1 gap-2 pr-2"></div>
         </div>
     </div>
 
-    <div id="videoModal" class="fixed inset-0 bg-black/99 z-[120] hidden flex items-center justify-center p-4">
+    <div id="videoModal" class="fixed inset-0 bg-black z-[120] hidden flex items-center justify-center p-4">
         <button onclick="closeModal()" class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white">&times;</button>
-        <div class="w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-white/5">
-            <iframe id="videoPlayer" src="" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
-        </div>
+        <iframe id="videoPlayer" src="" class="w-full max-w-5xl aspect-video rounded-xl shadow-2xl border border-white/5 bg-black" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <script>
-        // Stranger Things Bölüm Datası (Boş Linkler)
+        // TÜM BÖLÜMLER VE M3U8 LİNK YERLERİ (Tırnak içini doldurabilirsin)
         const seriesData = {
             1: [
-                {id: 1, name: "Bölüm 1: Will Byers'ın Ortadan Kayboluşu", link: ""},
-                {id: 2, name: "Bölüm 2: Maple Sokağı'ndaki Kaçık", link: ""},
-                {id: 3, name: "Bölüm 3: Noel Işıkları", link: ""},
-                {id: 4, name: "Bölüm 4: Ceset", link: ""},
-                {id: 5, name: "Bölüm 5: Pire ve İp Cambazı", link: ""},
-                {id: 6, name: "Bölüm 6: Canavar", link: ""},
-                {id: 7, name: "Bölüm 7: Küvet", link: ""},
-                {id: 8, name: "Bölüm 8: Baş Aşağı", link: ""}
+                {name: "1. Bölüm: Will Byers'ın Kayboluşu", link: ""},
+                {name: "2. Bölüm: Maple Sokağı'ndaki Kaçık", link: ""},
+                {name: "3. Bölüm: Noel Işıkları", link: ""},
+                {name: "4. Bölüm: Ceset", link: ""},
+                {name: "5. Bölüm: Pire ve İp Cambazı", link: ""},
+                {name: "6. Bölüm: Canavar", link: ""},
+                {name: "7. Bölüm: Küvet", link: ""},
+                {name: "8. Bölüm: Baş Aşağı", link: ""}
             ],
             2: [
-                {id: 1, name: "Bölüm 1: Madmax", link: ""},
-                {id: 2, name: "Bölüm 2: Şeker mi Şaka mı Kaçık", link: ""},
-                {id: 3, name: "Bölüm 3: İribaş", link: ""}
+                {name: "1. Bölüm: Madmax", link: ""},
+                {name: "2. Bölüm: Şeker mi Şaka mı Kaçık", link: ""},
+                {name: "3. Bölüm: İribaş", link: ""},
+                {name: "4. Bölüm: Bilge Will", link: ""},
+                {name: "5. Bölüm: Dig Dug", link: ""},
+                {name: "6. Bölüm: Casus", link: ""},
+                {name: "7. Bölüm: Kayıp Kız Kardeş", link: ""},
+                {name: "8. Bölüm: Zihin Hırsızı", link: ""},
+                {name: "9. Bölüm: Kapı", link: ""}
             ],
-            3: Array.from({length: 8}, (_, i) => ({id: i+1, name: `3. Sezon Bölüm ${i+1}`, link: ""})),
-            4: Array.from({length: 9}, (_, i) => ({id: i+1, name: `4. Sezon Bölüm ${i+1}`, link: ""}))
+            3: [
+                {name: "1. Bölüm: Suzi, Duyuyor Musun?", link: ""},
+                {name: "2. Bölüm: Alışveriş Merkezi Fareleri", link: ""},
+                {name: "3. Bölüm: Kayıp Cankurtaran Vakası", link: ""},
+                {name: "4. Bölüm: Sauna Testi", link: ""},
+                {name: "5. Bölüm: Ele Geçirilenler", link: ""},
+                {name: "6. Bölüm: E Pluribus Unum", link: ""},
+                {name: "7. Bölüm: Isırık", link: ""},
+                {name: "8. Bölüm: Starcourt Savaşı", link: ""}
+            ],
+            4: [
+                {name: "1. Bölüm: Hellfire Kulübü", link: ""},
+                {name: "2. Bölüm: Vecna'nın Laneti", link: ""},
+                {name: "3. Bölüm: Canavar ve Kahraman", link: ""},
+                {name: "4. Bölüm: Sevgili Billy", link: ""},
+                {name: "5. Bölüm: Nina Projesi", link: ""},
+                {name: "6. Bölüm: Dalış", link: ""},
+                {name: "7. Bölüm: Hawkins Laboratuvarı Katliamı", link: ""},
+                {name: "8. Bölüm: Baba", link: ""},
+                {name: "9. Bölüm: Otostop", link: ""}
+            ],
+            5: [
+                {name: "1. Bölüm", link: ""},
+                {name: "2. Bölüm", link: ""},
+                {name: "3. Bölüm", link: ""},
+                {name: "4. Bölüm", link: ""},
+                {name: "5. Bölüm", link: ""},
+                {name: "6. Bölüm", link: ""},
+                {name: "7. Bölüm", link: ""},
+                {name: "8. Bölüm", link: ""}
+            ]
         };
 
         function toggleProfile() {
-            const panel = document.getElementById('profilePanel');
-            const overlay = document.getElementById('profileOverlay');
-            panel.classList.toggle('active');
-            overlay.classList.toggle('hidden');
+            document.getElementById('profilePanel').classList.toggle('active');
+            document.getElementById('profileOverlay').classList.toggle('hidden');
         }
 
         function saveProfile() {
-            const newName = document.getElementById('usernameInput').value || "User";
-            document.getElementById('navUsername').innerText = newName;
-            document.getElementById('navAvatar').innerText = newName[0].toUpperCase();
-            document.getElementById('panelAvatar').innerText = newName[0].toUpperCase();
-            alert("Profil başarıyla kaydedildi!");
+            const name = document.getElementById('usernameInput').value || "User";
+            document.getElementById('navUsername').innerText = name;
+            document.getElementById('navAvatar').innerText = name[0].toUpperCase();
+            document.getElementById('panelAvatar').innerText = name[0].toUpperCase();
             toggleProfile();
         }
 
-        function openEpisodes() {
-            document.getElementById('episodeModal').classList.remove('hidden');
-            loadEpisodes();
+        function openEpisodes() { 
+            document.getElementById('episodeModal').classList.remove('hidden'); 
+            loadEpisodes(); 
         }
-
-        function closeEpisodes() {
-            document.getElementById('episodeModal').classList.add('hidden');
-        }
+        function closeEpisodes() { document.getElementById('episodeModal').classList.add('hidden'); }
 
         function loadEpisodes() {
-            const season = document.getElementById('seasonSelect').value;
-            const container = document.getElementById('episodeContainer');
-            container.innerHTML = "";
-
-            seriesData[season].forEach(ep => {
-                const epBtn = document.createElement('div');
-                epBtn.className = "bg-zinc-900 hover:bg-zinc-800 p-4 rounded-xl cursor-pointer border border-white/5 transition flex items-center justify-between group";
-                epBtn.innerHTML = `
-                    <span class="text-xs font-bold text-gray-300 group-hover:text-blue-500 transition">${ep.name}</span>
-                    <i class="fas fa-play text-[10px] text-gray-600 group-hover:text-white"></i>
-                `;
-                epBtn.onclick = () => openModal(ep.link);
-                container.appendChild(epBtn);
-            });
+            const s = document.getElementById('seasonSelect').value;
+            const c = document.getElementById('episodeContainer');
+            c.innerHTML = seriesData[s].map(ep => `
+                <div onclick="openModal('${ep.link}')" class="bg-zinc-900/50 p-4 rounded-xl cursor-pointer hover:bg-blue-600/20 text-xs font-bold transition flex justify-between items-center text-gray-300 hover:text-white border border-white/5">
+                    <span>${ep.name}</span><i class="fas fa-play-circle text-blue-500 text-lg"></i>
+                </div>
+            `).join('');
         }
 
-        function openModal(url) {
-            if(!url) {
-                alert("Bu bölümün m3u8 linki henüz eklenmemiş.");
-                return;
-            }
-            document.getElementById('videoPlayer').src = url;
+        function openModal(u) {
+            if(!u) return alert("Bölüm linki henüz eklenmemiş!");
+            document.getElementById('videoPlayer').src = u;
             document.getElementById('videoModal').classList.remove('hidden');
         }
 
