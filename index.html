@@ -3,125 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melik spor HD</title>
+    <title>MelikSpor HD</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
+        /* Genel Tema Ayarları */
+        :root {
+            --primary-bg: #0a0a0c;
+            --accent-red: #ff0000;
+            --card-bg: #161b22;
+            --text-white: #f0f6fc;
+            --border-color: #30363d;
+        }
+
         body {
-            font-family: sans-serif;
-            background-color: #121212;
-            color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-white);
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-bottom: 50px;
         }
-        header {
-            padding: 20px;
+
+        /* Üst Başlık */
+        .header {
             width: 100%;
+            padding: 30px 0;
             text-align: center;
-            background-color: #1f1f1f;
-            border-bottom: 2px solid #333;
+            background: linear-gradient(to bottom, #161b22, #0a0a0c);
+            border-bottom: 1px solid var(--border-color);
         }
-        .container {
-            max-width: 900px;
-            width: 100%;
-            padding: 20px;
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
-        .tabs {
-            margin-bottom: 15px;
-            display: flex;
-            gap: 10px;
-        }
-        .tab-button {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .tab-button:hover {
-            background-color: #555;
-        }
-        .tab-button.active {
-            background-color: #e50914; /* Spor kanalı vurgusu için kırmızı */
-        }
-        #video-container {
-            width: 100%;
-            background-color: black;
-            aspect-ratio: 16 / 9;
-            border-radius: 8px;
+
+        /* Video Alanı */
+        .player-wrapper {
+            width: 95%;
+            max-width: 1100px;
+            margin: 20px auto;
+            background-color: #000;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            border: 1px solid var(--border-color);
+            aspect-ratio: 16 / 9;
         }
+
         video {
             width: 100%;
             height: 100%;
         }
-        .status {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #888;
+
+        /* Yayın İbresi ve Durum Çubuğu */
+        .status-bar {
+            width: 95%;
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--accent-red);
+        }
+
+        .live-dot {
+            height: 12px;
+            width: 12px;
+            background-color: var(--accent-red);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 12px;
+            box-shadow: 0 0 10px var(--accent-red);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        .status-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e6edf3;
+        }
+
+        /* Kanallar Başlığı */
+        .channels-header {
+            width: 95%;
+            max-width: 1100px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        /* Kanal Butonları Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            width: 95%;
+            max-width: 1100px;
+        }
+
+        .btn {
+            background-color: var(--card-bg);
+            color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #21262d;
+            border-color: #8b949e;
+            transform: translateY(-3px);
+        }
+
+        .btn.active {
+            background-color: var(--accent-red);
+            border-color: var(--accent-red);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Mobil Optimizasyon */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
+            .btn { padding: 15px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Melik spor HD</h1>
-</header>
-
-<div class="container">
-    <h3>Kanallar</h3>
-    <div class="tabs">
-        <button class="tab-button" onclick="playM3U8('https://test-url-buraya.m3u8', this)">BeinSports 1</button>
-        <button class="tab-button" onclick="playM3U8('https://dga1op10s1u3leo.ec876fd9240622.click/live/xbeinsports-2/playlist.m3u8', this)">BeinSports 2</button>
+    <div class="header">
+        <h1>MelikSpor HD</h1>
     </div>
 
-    <div id="video-container">
-        <video id="video" controls autoplay></video>
+    <div class="player-wrapper">
+        <video id="videoPlayer" controls autoplay poster="https://via.placeholder.com/1280x720/000000/FFFFFF?text=Lütfen+Kanal+Seçiniz"></video>
     </div>
+
+    <div class="status-bar">
+        <span class="live-dot"></span>
+        <span class="status-text" id="nowPlaying">Şu anda izleniyor: Kanal seçilmedi</span>
+    </div>
+
+    <div class="channels-header">Kanallar</div>
     
-    <div class="status" id="status-text">Kanal seçiniz...</div>
-</div>
+    <div class="grid-container">
+        <button class="btn" onclick="playChannel('https://dga1op10s1u3leo.ec876fd9240622.click/live/xbeinsports-1/playlist.m3u8', 'BeinSports 1', this)">BeinSports 1</button>
+        <button class="btn" onclick="playChannel('https://dga1op10s1u3leo.ec876fd9240622.click/live/xbeinsports-2/playlist.m3u8', 'BeinSports 2', this)">BeinSports 2</button>
+        <button class="btn" onclick="playChannel('https://dga1op10s1u3leo.ec876fd9240622.click/live/xbeinsports-3/playlist.m3u8', 'BeinSports 3', this)">BeinSports 3</button>
+        <button class="btn" onclick="playChannel('https://dga1op10s1u3leo.ec876fd9240622.click/live/xbeinsports-4/playlist.m3u8', 'BeinSports 4', this)">BeinSports 4</button>
+        <button class="btn" onclick="playChannel('LINK_5', 'BeinSports 5', this)">BeinSports 5</button>
+        <button class="btn" onclick="playChannel('LINK_6', 'BeinSports 6', this)">BeinSports 6</button>
+    </div>
 
-<script>
-    function playM3U8(url, button) {
-        var video = document.getElementById('video');
-        var status = document.getElementById('status-text');
-        
-        // Aktif buton rengini güncelle
-        var buttons = document.getElementsByClassName('tab-button');
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].classList.remove('active');
-        }
-        button.classList.add('active');
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const statusText = document.getElementById('nowPlaying');
+        let hls = new Hls();
 
-        status.innerText = "Yükleniyor: " + button.innerText;
+        function playChannel(url, channelName, element) {
+            // Aktif buton görselini güncelle
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
 
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            // İbreyi güncelle
+            statusText.innerText = "Şu anda izleniyor: " + channelName;
+
+            // Link kontrolü
+            if (url.startsWith('LINK')) {
+                alert("Bu kanalın linki henüz eklenmemiş.");
+                return;
+            }
+
+            // Yayın Yükleme
+            if (Hls.isSupported()) {
+                hls.destroy(); 
+                hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } 
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
                 video.play();
-            });
-        } 
-        // Safari gibi HLS'yi yerel destekleyen tarayıcılar için
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        } else {
-            alert("Tarayıcınız bu yayın formatını desteklemiyor.");
+            }
         }
-    }
 
-    // Bein 2'yi başlangıçta otomatik yüklemek istersen burayı açabilirsin:
-    // document.querySelectorAll('.tab-button')[1].click();
-</script>
+        // Başlangıçta Bein 2'yi hazırla (linki olduğu için)
+        window.onload = function() {
+            // İstersen otomatik başlatmak için burayı aktif edebilirsin:
+            // playChannel('https://dga1op10s1u3leo.ec876fd9240622.click/live/xbeinsports-2/playlist.m3u8', 'BeinSports 2', document.querySelectorAll('.btn')[1]);
+        };
+    </script>
 
 </body>
 </html>
