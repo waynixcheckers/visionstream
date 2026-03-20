@@ -96,7 +96,7 @@
         <section>
             <h3 class="text-sm font-bold mb-6 flex items-center gap-2 border-l-4 border-blue-600 pl-3 uppercase tracking-widest text-white">Gişe Filmleri</h3>
             <div class="grid grid-cols-2 md:grid-cols-6 gap-6">
-                <div class="card-hover cursor-pointer rounded overflow-hidden bg-zinc-900 shadow-xl" onclick="openModal('https://ORNEK_LINK.m3u8')">
+                <div class="card-hover cursor-pointer rounded overflow-hidden bg-zinc-900 shadow-xl" onclick="openModal('https://box-1035-f2.vmeas.cloud/hls/,xqx2pno275okjiqbtfis5lknxe36alobcwozn7azc5bhgmcx6kqmcqqpr7ba,.urlset/master.m3u8')">
                     <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/exsByu9wCHLHLzjPXxhwQZXGIbA.jpg" class="w-full h-auto aspect-[2/3] object-cover">
                     <div class="p-3">
                         <h4 class="font-bold text-xs truncate text-white uppercase">El Camino</h4>
@@ -153,34 +153,50 @@
         </div>
     </div>
 
-    <div id="videoModal" class="fixed inset-0 bg-black z-[120] hidden flex items-center justify-center p-4">
-        <button onclick="closeModal()" class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white">&times;</button>
-        <iframe id="videoPlayer" src="" class="w-full max-w-5xl aspect-video rounded-xl shadow-2xl border border-white/5 bg-black" frameborder="0" allowfullscreen></iframe>
+    <div id="videoModal" class="fixed inset-0 bg-black/95 z-[120] hidden flex items-center justify-center p-4">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-3xl text-gray-400 hover:text-white z-[130]">&times;</button>
+        
+        <div class="w-full max-w-5xl aspect-video bg-black rounded-xl shadow-2xl border border-white/5 relative overflow-hidden">
+            
+            <div id="adContainer" class="absolute inset-0 z-10 bg-zinc-900 flex flex-col items-center justify-center hidden">
+                <span class="absolute top-4 left-4 bg-yellow-500 text-black text-[10px] font-black px-2 py-1 rounded uppercase tracking-widest z-30">Sponsorlu İçerik</span>
+                
+                <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=1965&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-40 z-10">
+                
+                <h3 class="text-white text-3xl font-black z-20 uppercase tracking-tighter mb-2">VisionStream Reklam Alanı</h3>
+                <p class="text-gray-300 text-sm z-20">Asıl videonuz birazdan başlayacak...</p>
+                
+                <button id="skipAdBtn" class="absolute bottom-6 right-6 bg-white/10 backdrop-blur border border-white/20 text-white px-6 py-2 rounded text-sm font-bold transition disabled:opacity-50 disabled:cursor-not-allowed z-30">
+                    Reklamı Geç (5)
+                </button>
+            </div>
+
+            <iframe id="videoPlayer" src="" class="w-full h-full absolute inset-0 z-0 hidden" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 
     <script>
-        // TÜM BÖLÜMLER VE M3U8 LİNK YERLERİ (Tırnak içini doldurabilirsin)
         const seriesData = {
             1: [
-                {name: "1. Bölüm: Will Byers'ın Kayboluşu", link: ""},
-                {name: "2. Bölüm: Maple Sokağı'ndaki Kaçık", link: ""},
-                {name: "3. Bölüm: Noel Işıkları", link: ""},
-                {name: "4. Bölüm: Ceset", link: ""},
-                {name: "5. Bölüm: Pire ve İp Cambazı", link: ""},
-                {name: "6. Bölüm: Canavar", link: ""},
-                {name: "7. Bölüm: Küvet", link: ""},
-                {name: "8. Bölüm: Baş Aşağı", link: ""}
+                {name: "1. Bölüm: Will Byers'ın Kayboluşu", link: "https://vs15.photour.org/v/Stranger.Things.S01E01.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "2. Bölüm: Maple Sokağı'ndaki Kaçık", link: "https://vs19.photofunia.pro/v/Stranger.Things.S01E02.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "3. Bölüm: Noel Işıkları", link: "https://vs9.photomag.biz/v/Stranger.Things.S01E03.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "4. Bölüm: Ceset", link: "https://vs18.gamephotos.pro/v/Stranger.Things.S01E04.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "5. Bölüm: Pire ve İp Cambazı", link: "https://vs14.photofunny.org/v/Stranger.Things.S01E05.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "6. Bölüm: Canavar", link: "https://vs14.gamephotos.pro/v/Stranger.Things.S01E06.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "7. Bölüm: Küvet", link: "https://vs12.photoflax.org/v/Stranger.Things.S01E07.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"},
+                {name: "8. Bölüm: Baş Aşağı", link: "https://vs14.photoflix.org/v/Stranger.Things.S01E08.WEBRip.1080p.DUAL.x264-HDM/master.m3u8"}
             ],
             2: [
-                {name: "1. Bölüm: Madmax", link: ""},
-                {name: "2. Bölüm: Şeker mi Şaka mı Kaçık", link: ""},
-                {name: "3. Bölüm: İribaş", link: ""},
-                {name: "4. Bölüm: Bilge Will", link: ""},
-                {name: "5. Bölüm: Dig Dug", link: ""},
-                {name: "6. Bölüm: Casus", link: ""},
-                {name: "7. Bölüm: Kayıp Kız Kardeş", link: ""},
-                {name: "8. Bölüm: Zihin Hırsızı", link: ""},
-                {name: "9. Bölüm: Kapı", link: ""}
+                {name: "1. Bölüm: Madmax", link: "https://vs15.photour.org/v/Stranger.Things.S02E01.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "2. Bölüm: Şeker mi Şaka mı Kaçık", link: "https://vs15.photostack.net/v/Stranger.Things.S02E02.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "3. Bölüm: İribaş", link: "https://vs9.photomag.biz/v/Stranger.Things.S02E03.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "4. Bölüm: Bilge Will", link: "https://vs18.photomag.biz/v/Stranger.Things.S02E04.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "5. Bölüm: Dig Dug", link: "https://vs12.photostack.net/v/Stranger.Things.S02E05.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "6. Bölüm: Casus", link: "https://vs11.photoflix.org/v/Stranger.Things.S02E06.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "7. Bölüm: Kayıp Kız Kardeş", link: "https://vs9.gamephotos.pro/v/Stranger.Things.S02E07.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "8. Bölüm: Zihin Hırsızı", link: "https://vs15.photostack.net/v/Stranger.Things.S02E08.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"},
+                {name: "9. Bölüm: Kapı", link: "https://vs10.pictureflix.org/v/Stranger.Things.S02E09.WEB-DL.1080p.DUAL.H.264-HDM/master.m3u8"}
             ],
             3: [
                 {name: "1. Bölüm: Suzi, Duyuyor Musun?", link: ""},
@@ -244,16 +260,54 @@
             `).join('');
         }
 
+        // --- YENİ REKLAM SİSTEMİ ---
+        let adTimer;
         function openModal(u) {
             if(!u) return alert("Bölüm linki henüz eklenmemiş!");
-            document.getElementById('videoPlayer').src = u;
-            document.getElementById('videoModal').classList.remove('hidden');
+            
+            const videoModal = document.getElementById('videoModal');
+            const adContainer = document.getElementById('adContainer');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const skipAdBtn = document.getElementById('skipAdBtn');
+
+            // Başlangıç ayarları: Reklamı göster, videoyu gizle
+            videoModal.classList.remove('hidden');
+            adContainer.classList.remove('hidden');
+            videoPlayer.classList.add('hidden');
+            videoPlayer.src = ""; // Eski videoyu sıfırla
+
+            let timeLeft = 5; // 5 Saniye bekleme
+            skipAdBtn.innerText = `Reklamı Geç (${timeLeft})`;
+            skipAdBtn.disabled = true;
+            skipAdBtn.classList.remove('hover:bg-white/20');
+            skipAdBtn.onclick = null;
+
+            // Geri Sayım İşlemi
+            adTimer = setInterval(() => {
+                timeLeft--;
+                if(timeLeft > 0) {
+                    skipAdBtn.innerText = `Reklamı Geç (${timeLeft})`;
+                } else {
+                    clearInterval(adTimer);
+                    skipAdBtn.innerText = "Reklamı Geç >";
+                    skipAdBtn.disabled = false;
+                    skipAdBtn.classList.add('hover:bg-white/20');
+                    
+                    // Reklamı Geç'e basıldığında
+                    skipAdBtn.onclick = () => {
+                        adContainer.classList.add('hidden'); // Reklamı gizle
+                        videoPlayer.classList.remove('hidden'); // Videoyu göster
+                        videoPlayer.src = u; // Tıklanan linki iframe'e aktar ve başlat
+                    };
+                }
+            }, 1000);
         }
 
         function closeModal() {
+            clearInterval(adTimer); // Modal erken kapanırsa sayacı durdur
             document.getElementById('videoPlayer').src = "";
             document.getElementById('videoModal').classList.add('hidden');
         }
     </script>
 </body>
-</html>
+                                                                                                              </html>
